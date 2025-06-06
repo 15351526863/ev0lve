@@ -3,12 +3,13 @@
 #define STDAFX_H
 
 #define WIN32_LEAN_AND_MEAN
+#define NOMINMAX
 
 #define WIN32_NO_STATUS
-#include <Windows.h>
+#include <windows.h>
 #undef WIN32_NO_STATUS
 
-#include <Windowsx.h>
+#include <windowsx.h>
 #include <intrin.h>
 #include <ntstatus.h>
 #include <winternl.h>

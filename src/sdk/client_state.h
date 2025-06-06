@@ -113,26 +113,12 @@ public:
 				0, uintptr_t(this) + 12);
 	}
 
-	void __declspec(noinline) netmsg_tick_ctor(uintptr_t thisptr, int32_t tick)
-	{
-		const auto ctor = game->engine.at(functions::net_channel::netmsg_tick_ctor);
-		const auto host = game->engine.at(functions::net_channel::host);
-		const auto xmm0_param = *(float *)*(uintptr_t *)(host + 0x4); // host_framestarttime_std_deviation
-		const auto xmm3_param = *(float *)*(uintptr_t *)(host + 0x8 + 0x4); // host_computationtime_std_deviation
-		const auto xmm2_param = *(float *)*(uintptr_t *)(host + 0x10 + 0x4); // host_computationtime
-
-		__asm
-		{
-				movss xmm0, xmm0_param
-				push xmm0_param
-				movss xmm3, xmm3_param
-				movss xmm2, xmm2_param
-				push tick
-				mov ecx, thisptr
-				mov eax, [ctor]
-				call eax
-		}
-	}
+        void __declspec(noinline) netmsg_tick_ctor(uintptr_t thisptr, int32_t tick)
+        {
+                using ctor_fn = void(__thiscall *)(uintptr_t, int32_t);
+                auto ctor = reinterpret_cast<ctor_fn>(game->engine.at(functions::net_channel::netmsg_tick_ctor));
+                ctor(thisptr, tick);
+        }
 
 	inline void send_netmsg_tick()
 	{

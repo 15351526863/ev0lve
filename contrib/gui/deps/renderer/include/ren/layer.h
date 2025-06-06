@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <optional>
+#include <atomic>
 
 #include <ren/macros.h>
 #include <ren/types/color.h>

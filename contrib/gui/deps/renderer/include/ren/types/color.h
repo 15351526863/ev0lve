@@ -29,8 +29,8 @@ namespace evo::ren
 
 		static color percent(float p, float a = 1.f)
 		{
-			return {p < .5f ? .78f : std::floorf(.78f - (p * 2.f - 1.f) * .78f), p > .5f ? .78f : std::floorf(p * 1.56f), .05f, a};
-		}
+                       return {p < .5f ? .78f : std::floor(.78f - (p * 2.f - 1.f) * .78f), p > .5f ? .78f : std::floor(p * 1.56f), .05f, a};
+               }
 
 		static color interpolate(const color &a, const color &b, float t)
 		{

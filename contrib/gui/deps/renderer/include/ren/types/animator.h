@@ -5,16 +5,12 @@
 #include <functional>
 #include <memory>
 #include <unordered_map>
+#include <algorithm>
 
 #include <ren/renderer.h>
 
-#ifndef min
-#define min(a, b) ((a) < (b) ? (a) : (b))
-#endif
-
-#ifndef max
-#define max(a, b) ((a) > (b) ? (a) : (b))
-#endif
+#undef min
+#undef max
 
 #define INTERP(n) __forceinline static float interp_##n(float a, float b, float u)
 #define LINEAR(c) interp_linear(a, b, c);
@@ -30,7 +26,11 @@ namespace evo::ren
 		ease_max,
 	};
 
-	INTERP(linear) { return max(min((1.f - max(min(u, 1.f), 0.f)) * a + u * b, b > a ? b : a), a > b ? b : a); }
+       INTERP(linear)
+       {
+               const float clamped = std::clamp(u, 0.f, 1.f);
+               return std::clamp((1.f - clamped) * a + clamped * b, std::min(a, b), std::max(a, b));
+       }
 
 	INTERP(ease_in)
 	{

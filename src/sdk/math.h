@@ -10,6 +10,7 @@
 #include <sdk/model_info_client.h>
 #include <sdk/vec3.h>
 #include <sdk/vertex.h>
+#include <algorithm>
 
 #define RAD2DEG(x) ((float)(x) * (float)(180.f / sdk::pi))
 #define DEG2RAD(x) ((float)(x) * (float)(sdk::pi / 180.f))
@@ -655,8 +656,8 @@ __forceinline void rgb_to_hsv(color in, float *h, float *s, float *v)
 	const auto g = static_cast<float>(in.green() / 255.f);
 	const auto b = static_cast<float>(in.blue() / 255.f);
 
-	const auto m = min(min(r, g), b);
-	*v = max(max(r, g), b);
+        const auto m = std::min(std::min(r, g), b);
+        *v = std::max(std::max(r, g), b);
 	const auto delta = *v - m;
 
 	if (*v == 0.f)
@@ -726,8 +727,8 @@ __forceinline void clamp_vector(vec3 &v, const float cl)
 	const auto length = v.length();
 	if (length > .001f)
 	{
-		v /= length;
-		v *= min(length, cl);
+                v /= length;
+                v *= std::min(length, cl);
 	}
 }
 

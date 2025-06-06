@@ -253,8 +253,8 @@ namespace evo::ren
 		 */
 		[[nodiscard]] vec2 circle(float r) const
 		{
-			return center() + vec2(width() * .5f * std::cosf(r), height() * .5f * std::sinf(r));
-		}
+                       return center() + vec2(width() * .5f * std::cos(r), height() * .5f * std::sin(r));
+               }
 
 		[[nodiscard]] rect floor() const { return {mins.floor(), maxs.floor()}; }
 		[[nodiscard]] rect ceil() const { return {mins.ceil(), maxs.ceil()}; }
@@ -266,7 +266,7 @@ namespace evo::ren
 	};
 } // namespace evo::ren
 
-#define min(a, b) ((a) < (b) ? (a) : (b))
-#define max(a, b) ((a) > (b) ? (a) : (b))
+#undef min
+#undef max
 
 #endif // REN_LINKER_POS_H
