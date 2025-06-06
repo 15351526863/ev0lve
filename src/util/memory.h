@@ -2,7 +2,7 @@
 #ifndef UTIL_MEMORY_H
 #define UTIL_MEMORY_H
 
-#include <TlHelp32.h>
+#include <tlhelp32.h>
 #include <util/definitions.h>
 #include <util/fnv1a.h>
 #include <util/value_obfuscation.h>

@@ -4,7 +4,7 @@
 
 #include <Psapi.h>
 #include <Shlobj.h>
-#include <TlHelp32.h>
+#include <tlhelp32.h>
 #include <filesystem>
 #include <util/fnv1a.h>
 
