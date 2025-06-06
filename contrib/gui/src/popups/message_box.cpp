@@ -1,4 +1,5 @@
 #include <gui/popups/message_box.h>
+#include <algorithm>
 
 GUI_NAMESPACE;
 
@@ -36,7 +37,7 @@ void message_box::on_first_render_call()
 	const auto msg_sz = fnt->get_text_size(message);
 	const auto title_sz = fnt->get_text_size(title);
 
-	size = {40.f + max(max(title_sz.x, msg_sz.x), 100.f), 94.f + msg_sz.y};
+        size = {40.f + std::max(std::max(title_sz.x, msg_sz.x), 100.f), 94.f + msg_sz.y};
 	pos = draw.display * 0.5f - size * 0.5f;
 
 	popup::on_first_render_call();

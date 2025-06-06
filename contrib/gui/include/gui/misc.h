@@ -4,7 +4,7 @@
 #include <string>
 
 #define WIN32_LEAN_AND_MEAN
-#include <Windows.h>
+#include <windows.h>
 
 #define GUI_HASH(s) evo::gui::msvc_constexpr<unsigned long long, evo::gui::hash(s)>::_
 #define GUI_HASH_32(s) evo::gui::msvc_constexpr<unsigned int, evo::gui::hash_32(s)>::_

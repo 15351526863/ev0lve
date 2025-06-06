@@ -978,7 +978,7 @@ static int stbi__err(const char *str)
 }
 #endif
 
-static void *stbi__malloc(size_t size) { return STBI_MALLOC(size); }
+STBIDEF void *stbi__malloc(size_t size) { return STBI_MALLOC(size); }
 
 // stb_image uses ints pervasively, including for offset calculations.
 // therefore the largest decoded image size we can support with the
