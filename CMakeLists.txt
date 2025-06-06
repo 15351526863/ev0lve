@@ -5,18 +5,21 @@ project(csgo_internal)
 set(CMAKE_CXX_STANDARD 23)
 
 # compile options.
-add_compile_options(-m32
-	-march=x86-64-v2
-	-mno-sse4a
-	-fno-rtti
-	-Xclang -fno-rtti-data
-	-fno-omit-frame-pointer
-	-mno-omit-leaf-frame-pointer
+add_compile_options(
+        -m32
+        -march=x86-64-v2
+        -mno-sse4a
+        -fno-rtti
+        -fno-omit-frame-pointer
+        -mno-omit-leaf-frame-pointer
 	-Wno-comment
 	-Wno-new-returns-null
 	-Wno-unused-result
-	-Wno-macro-redefined
-	-Wno-pch-date-time)
+        -Wno-macro-redefined
+        -Wno-pch-date-time)
+if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+    add_compile_options(-Xclang -fno-rtti-data)
+endif()
 add_compile_definitions(_HAS_ITERATOR_DEBUGGING=0
 	_SECURE_SCL=0
 	_HAS_STATIC_RTTI=0

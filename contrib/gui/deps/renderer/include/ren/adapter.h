@@ -2,7 +2,7 @@
 #define REN_LINKER_ADAPTER_H
 
 #define WIN32_LEAN_AND_MEAN
-#include <Windows.h>
+#include <windows.h>
 
 #include <functional>
 #include <ren/buffer.h>

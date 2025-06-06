@@ -1,4 +1,6 @@
 #include <gui/popups/dialog_box.h>
+#include <algorithm>
+#include <stdexcept>
 
 GUI_NAMESPACE;
 
@@ -12,7 +14,7 @@ void dialog_box::on_first_render_call()
 
 	const auto button_count = buttons == db_yes_no_cancel ? 3.f : 2.f;
 
-	size = {40.f + max(max(title_sz.x, msg_sz.x), 100.f * button_count), 94.f + msg_sz.y};
+        size = {40.f + std::max(std::max(title_sz.x, msg_sz.x), 100.f * button_count), 94.f + msg_sz.y};
 	pos = draw.display * 0.5f - size * 0.5f;
 
 	popup::on_first_render_call();
@@ -125,5 +127,5 @@ std::string dialog_box::get_button_name(int pos)
 		break;
 	}
 
-	throw std::exception(XOR("Unknown button type or invalid position"));
+    throw std::runtime_error(XOR("Unknown button type or invalid position"));
 }

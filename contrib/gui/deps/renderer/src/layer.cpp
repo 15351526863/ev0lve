@@ -1,6 +1,8 @@
 #include <ren/layer.h>
 #include <ren/misc.h>
 #include <ren/renderer.h>
+#include <cmath>
+#include <algorithm>
 
 namespace evo::ren
 {
@@ -107,8 +109,8 @@ namespace evo::ren
 		{
 			const auto off_l = offset - delta * .5f;
 			const auto off_r = offset + delta * .5f;
-			const auto a = center + vec2{radius * cosf(off_l), radius * sinf(off_l)};
-			const auto b = center + vec2{radius * cosf(off_r), radius * sinf(off_r)};
+			const auto a = center + vec2{radius * std::cos(off_l), radius * std::sin(off_l)};
+			const auto b = center + vec2{radius * std::cos(off_r), radius * std::sin(off_r)};
 
 			const auto uv_a = uv.circle(off_l);
 			const auto uv_b = uv.circle(off_r);
@@ -164,8 +166,8 @@ namespace evo::ren
 		{
 			const auto off_l = offset - delta * .5f;
 			const auto off_r = offset + delta * .5f;
-			const auto a = br + vec2{radius * cosf(off_l), radius * sinf(off_l)};
-			const auto b = br + vec2{radius * cosf(off_r), radius * sinf(off_r)};
+			const auto a = br + vec2{radius * std::cos(off_l), radius * std::sin(off_l)};
+			const auto b = br + vec2{radius * std::cos(off_r), radius * std::sin(off_r)};
 
 			vb->write(vertex_unfloored{a.x, a.y, 0.f, c.abgr(), 0.f, 0.f, skip_dpi});
 			vb->write(vertex_unfloored{b.x, b.y, 0.f, c.abgr(), 0.f, 0.f, skip_dpi});
@@ -277,8 +279,8 @@ namespace evo::ren
 		{
 			const auto off_l = offset - delta * .5f;
 			const auto off_r = offset + delta * .5f;
-			const auto a = center + vec2{radius * cosf(off_l), radius * sinf(off_l)};
-			const auto b = center + vec2{radius * cosf(off_r), radius * sinf(off_r)};
+			const auto a = center + vec2{radius * std::cos(off_l), radius * std::sin(off_l)};
+			const auto b = center + vec2{radius * std::cos(off_r), radius * std::sin(off_r)};
 
 			const auto uv_a = uv.circle(off_l);
 			const auto uv_b = uv.circle(off_r);
@@ -385,7 +387,7 @@ namespace evo::ren
 		if (amount == 0.f || (int)rnd == 0)
 			return add_rect_filled(r, c);
 
-		amount = min(amount, min(r.width(), r.height()) * .5f);
+                amount = std::min(amount, std::min(r.width(), r.height()) * .5f);
 		if (r.width() == r.height() && amount == r.width() * .5f && rnd == rnd_all)
 			return add_circle_filled(r.center(), amount, c);
 
@@ -759,22 +761,22 @@ namespace evo::ren
 			switch (mode)
 			{
 				case outline_inset:
-					a0 = center + vec2{radius * cosf(off_l), radius * sinf(off_l)};
-					b0 = center + vec2{radius * cosf(off_r), radius * sinf(off_r)};
-					a1 = center + vec2{(radius + thickness) * cosf(off_l), (radius + thickness) * sinf(off_l)};
-					b1 = center + vec2{(radius + thickness) * cosf(off_r), (radius + thickness) * sinf(off_r)};
+					a0 = center + vec2{radius * std::cos(off_l), radius * std::sin(off_l)};
+					b0 = center + vec2{radius * std::cos(off_r), radius * std::sin(off_r)};
+					a1 = center + vec2{(radius + thickness) * std::cos(off_l), (radius + thickness) * std::sin(off_l)};
+					b1 = center + vec2{(radius + thickness) * std::cos(off_r), (radius + thickness) * std::sin(off_r)};
 					break;
 				case outline_outset:
-					a0 = center + vec2{(radius - thickness) * cosf(off_l), (radius - thickness) * sinf(off_l)};
-					b0 = center + vec2{(radius - thickness) * cosf(off_r), (radius - thickness) * sinf(off_r)};
-					a1 = center + vec2{radius * cosf(off_l), radius * sinf(off_l)};
-					b1 = center + vec2{radius * cosf(off_r), radius * sinf(off_r)};
+					a0 = center + vec2{(radius - thickness) * std::cos(off_l), (radius - thickness) * std::sin(off_l)};
+					b0 = center + vec2{(radius - thickness) * std::cos(off_r), (radius - thickness) * std::sin(off_r)};
+					a1 = center + vec2{radius * std::cos(off_l), radius * std::sin(off_l)};
+					b1 = center + vec2{radius * std::cos(off_r), radius * std::sin(off_r)};
 					break;
 				case outline_center:
-					a0 = center + vec2{(radius - thickness * .5f) * cosf(off_l), (radius - thickness * .5f) * sinf(off_l)};
-					b0 = center + vec2{(radius - thickness * .5f) * cosf(off_r), (radius - thickness * .5f) * sinf(off_r)};
-					a1 = center + vec2{(radius + thickness * .5f) * cosf(off_l), (radius + thickness * .5f) * sinf(off_l)};
-					b1 = center + vec2{(radius + thickness * .5f) * cosf(off_r), (radius + thickness * .5f) * sinf(off_r)};
+					a0 = center + vec2{(radius - thickness * .5f) * std::cos(off_l), (radius - thickness * .5f) * std::sin(off_l)};
+					b0 = center + vec2{(radius - thickness * .5f) * std::cos(off_r), (radius - thickness * .5f) * std::sin(off_r)};
+					a1 = center + vec2{(radius + thickness * .5f) * std::cos(off_l), (radius + thickness * .5f) * std::sin(off_l)};
+					b1 = center + vec2{(radius + thickness * .5f) * std::cos(off_r), (radius + thickness * .5f) * std::sin(off_r)};
 					break;
 			}
 
@@ -874,7 +876,7 @@ namespace evo::ren
 		if (amount == 0.f || (int)rnd == 0)
 			return add_rect(r, c, thickness, mode);
 
-		amount = min(amount, min(r.width(), r.height()) * .5f);
+                amount = std::min(amount, std::min(r.width(), r.height()) * .5f);
 		if (r.width() == r.height() && amount == r.width() * .5f && rnd == rnd_all)
 			return add_circle(r.center(), amount, c, int(amount * 2.f), 1.f, thickness, mode);
 

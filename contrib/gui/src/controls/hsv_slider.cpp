@@ -1,5 +1,6 @@
 #include <gui/controls/hsv_slider.h>
 #include <gui/gui.h>
+#include <algorithm>
 
 GUI_NAMESPACE;
 
@@ -26,7 +27,7 @@ void hsv_slider::render()
 
 	const auto sb_grip_pos =
 		saturation.tl() + vec2{fake_saturation * saturation.width(), (1.f - fake_brightness) * saturation.height()};
-	const auto sb_grip_color = std::clamp(max((1.f - fake_brightness), fake_saturation), 0.f, 1.f);
+        const auto sb_grip_color = std::clamp(std::max((1.f - fake_brightness), fake_saturation), 0.f, 1.f);
 
 	const auto old_clip = d->g.clip_rect;
 	d->override_clip_rect(saturation);

@@ -1,5 +1,6 @@
 #include <gui/controls/widget.h>
 #include <gui/gui.h>
+#include <algorithm>
 
 namespace evo::gui
 {
@@ -23,14 +24,14 @@ void widget::render()
 	auto &d = draw.layers[ctx->content_layer];
 	const auto old_alpha = d->g.alpha;
 	d->g.anti_alias = true;
-	d->g.alpha = min(alpha_anim.value, max_alpha);
+        d->g.alpha = std::min(alpha_anim.value, max_alpha);
 	d->add_shadow_rect(area_abs(), 12.f);
 
 	const auto a = area_abs();
 
 	d->g.alpha = alpha_anim.value;
 	add_with_blur(d, a, [&a](auto &d) { d->add_rect_filled_rounded(a, color::white(), 4.f); });
-	d->g.alpha = min(alpha_anim.value, max_alpha);
+        d->g.alpha = std::min(alpha_anim.value, max_alpha);
 	d->add_rect_filled_rounded(area_abs(), colors.bg_bottom, 4.f);
 
 	// render header

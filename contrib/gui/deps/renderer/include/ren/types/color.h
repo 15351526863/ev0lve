@@ -27,10 +27,10 @@ namespace evo::ren
 		static color black_transparent() { return {0.f, 0.f, 0.f, 0.f}; }
 		static color gray(float b, float a = 1.f) { return {b, b, b, a}; }
 
-		static color percent(float p, float a = 1.f)
-		{
-			return {p < .5f ? .78f : std::floorf(.78f - (p * 2.f - 1.f) * .78f), p > .5f ? .78f : std::floorf(p * 1.56f), .05f, a};
-		}
+                static color percent(float p, float a = 1.f)
+                {
+                        return {p < .5f ? .78f : std::floor(.78f - (p * 2.f - 1.f) * .78f), p > .5f ? .78f : std::floor(p * 1.56f), .05f, a};
+                }
 
 		static color interpolate(const color &a, const color &b, float t)
 		{
@@ -131,8 +131,8 @@ namespace evo::ren
 		[[nodiscard]] color hsv(uint16_t _h, float _s, float _v, float a = -1.f) const
 		{
 			color col{*this};
-			const auto hi = ((uint32_t)floorf((float)_h / 60.f)) % 6;
-			const auto f = (float)_h / 60.f - floorf((float)_h / 60.f);
+                        const auto hi = ((uint32_t)std::floor((float)_h / 60.f)) % 6;
+                        const auto f = (float)_h / 60.f - std::floor((float)_h / 60.f);
 
 			const auto _a = _v * 255.f;
 			const auto _p = _a * (1.f - _s);

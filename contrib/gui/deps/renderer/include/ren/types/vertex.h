@@ -1,6 +1,8 @@
 #ifndef REN_LINKER_VERTEX_H
 #define REN_LINKER_VERTEX_H
 
+#include <cmath>
+
 namespace evo::ren
 {
 	extern float vtx_texel;
